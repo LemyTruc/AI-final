@@ -1,0 +1,425 @@
+{
+    "rooms": [
+        {
+            "id": 1,
+            "name": "Ph\u00f2ng 1",
+            "seats": 30,
+            "is_lab": false,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 2,
+            "name": "Ph\u00f2ng 2",
+            "seats": 25,
+            "is_lab": true,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 3,
+            "name": "Ph\u00f2ng 3",
+            "seats": 40,
+            "is_lab": true,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 4,
+            "name": "Ph\u00f2ng 4",
+            "seats": 50,
+            "is_lab": false,
+            "campus": "Nam"
+        },
+        {
+            "id": 5,
+            "name": "Ph\u00f2ng 5",
+            "seats": 50,
+            "is_lab": true,
+            "campus": "B2"
+        },
+        {
+            "id": 6,
+            "name": "Ph\u00f2ng 6",
+            "seats": 30,
+            "is_lab": true,
+            "campus": "N1"
+        },
+        {
+            "id": 7,
+            "name": "Ph\u00f2ng 7",
+            "seats": 30,
+            "is_lab": true,
+            "campus": "N1"
+        },
+        {
+            "id": 8,
+            "name": "8",
+            "seats": 30,
+            "is_lab": false,
+            "campus": "N1"
+        }
+    ],
+    "courses": [
+        {
+            "id": 1,
+            "name": "To\u00e1n 101 - L\u1edbp A",
+            "department": "Khoa To\u00e1n",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Smith",
+            "room_id": 1,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 2,
+            "name": "V\u1eadt l\u00fd 101 - L\u1edbp A",
+            "department": "Khoa V\u1eadt l\u00fd",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Johnson",
+            "room_id": 2,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 3,
+            "name": "H\u00f3a h\u1ecdc 101 - L\u1edbp A",
+            "department": "Khoa H\u00f3a h\u1ecdc",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Lee",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 4,
+            "name": "L\u1ecbch s\u1eed 101 - L\u1edbp A",
+            "department": "Khoa L\u1ecbch s\u1eed",
+            "max_students": 30,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "B\u00e0 Brown",
+            "room_id": 4,
+            "campus": "Nam"
+        },
+        {
+            "id": 5,
+            "name": "To\u00e1n 101 - L\u1edbp B",
+            "department": "Khoa To\u00e1n",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Smith",
+            "room_id": 1,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 6,
+            "name": "Khoa h\u1ecdc m\u00e1y t\u00ednh 101 - L\u1edbp B",
+            "department": "Khoa CS",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Walker",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 7,
+            "name": "Ti\u1ebfng Anh 101 - L\u1edbp B",
+            "department": "Khoa Ti\u1ebfng Anh",
+            "max_students": 30,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "B\u00e0 Green",
+            "room_id": 4,
+            "campus": "Nam"
+        },
+        {
+            "id": 8,
+            "name": "Sinh h\u1ecdc 101 - L\u1edbp B",
+            "department": "Khoa Sinh h\u1ecdc",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Adams",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 9,
+            "name": "To\u00e1n 101 - L\u1edbp C",
+            "department": "Khoa To\u00e1n",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Smith",
+            "room_id": 1,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 10,
+            "name": "V\u1eadt l\u00fd 101 - L\u1edbp C",
+            "department": "Khoa V\u1eadt l\u00fd",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Johnson",
+            "room_id": 2,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 11,
+            "name": "H\u00f3a h\u1ecdc 101 - L\u1edbp C",
+            "department": "Khoa H\u00f3a h\u1ecdc",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Lee",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 12,
+            "name": "L\u1ecbch s\u1eed 101 - L\u1edbp C",
+            "department": "Khoa L\u1ecbch s\u1eed",
+            "max_students": 30,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "B\u00e0 Brown",
+            "room_id": 4,
+            "campus": "Nam"
+        },
+        {
+            "id": 13,
+            "name": "To\u00e1n 101 - L\u1edbp D",
+            "department": "Khoa To\u00e1n",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Smith",
+            "room_id": 1,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 14,
+            "name": "Khoa h\u1ecdc m\u00e1y t\u00ednh 101 - L\u1edbp D",
+            "department": "Khoa CS",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Walker",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 15,
+            "name": "Ti\u1ebfng Anh 101 - L\u1edbp D",
+            "department": "Khoa Ti\u1ebfng Anh",
+            "max_students": 30,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "B\u00e0 Green",
+            "room_id": 4,
+            "campus": "Nam"
+        },
+        {
+            "id": 16,
+            "name": "Sinh h\u1ecdc 101 - L\u1edbp D",
+            "department": "Khoa Sinh h\u1ecdc",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Adams",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 17,
+            "name": "To\u00e1n 101 - L\u1edbp E",
+            "department": "Khoa To\u00e1n",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Smith",
+            "room_id": 1,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 18,
+            "name": "V\u1eadt l\u00fd 101 - L\u1edbp E",
+            "department": "Khoa V\u1eadt l\u00fd",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Johnson",
+            "room_id": 2,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 19,
+            "name": "H\u00f3a h\u1ecdc 101 - L\u1edbp E",
+            "department": "Khoa H\u00f3a h\u1ecdc",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Lee",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 20,
+            "name": "L\u1ecbch s\u1eed 101 - L\u1edbp E",
+            "department": "Khoa L\u1ecbch s\u1eed",
+            "max_students": 30,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "B\u00e0 Brown",
+            "room_id": 4,
+            "campus": "Nam"
+        },
+        {
+            "id": 21,
+            "name": "To\u00e1n 101 - L\u1edbp F",
+            "department": "Khoa To\u00e1n",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Smith",
+            "room_id": 1,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 22,
+            "name": "Khoa h\u1ecdc m\u00e1y t\u00ednh 101 - L\u1edbp F",
+            "department": "Khoa CS",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Walker",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 23,
+            "name": "Ti\u1ebfng Anh 101 - L\u1edbp F",
+            "department": "Khoa Ti\u1ebfng Anh",
+            "max_students": 30,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "B\u00e0 Green",
+            "room_id": 4,
+            "campus": "Nam"
+        },
+        {
+            "id": 24,
+            "name": "Sinh h\u1ecdc 101 - L\u1edbp F",
+            "department": "Khoa Sinh h\u1ecdc",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Adams",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 25,
+            "name": "To\u00e1n 101 - L\u1edbp G",
+            "department": "Khoa To\u00e1n",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Smith",
+            "room_id": 1,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 26,
+            "name": "V\u1eadt l\u00fd 101 - L\u1edbp G",
+            "department": "Khoa V\u1eadt l\u00fd",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Johnson",
+            "room_id": 2,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 27,
+            "name": "H\u00f3a h\u1ecdc 101 - L\u1edbp G",
+            "department": "Khoa H\u00f3a h\u1ecdc",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Lee",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 28,
+            "name": "L\u1ecbch s\u1eed 101 - L\u1edbp G",
+            "department": "Khoa L\u1ecbch s\u1eed",
+            "max_students": 30,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "B\u00e0 Brown",
+            "room_id": 4,
+            "campus": "Nam"
+        },
+        {
+            "id": 29,
+            "name": "To\u00e1n 101 - L\u1edbp H",
+            "department": "Khoa To\u00e1n",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Smith",
+            "room_id": 1,
+            "campus": "Ch\u00ednh"
+        },
+        {
+            "id": 30,
+            "name": "Khoa h\u1ecdc m\u00e1y t\u00ednh 101 - L\u1edbp H",
+            "department": "Khoa CS",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Ti\u1ebfn s\u0129 Walker",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 31,
+            "name": "DS&A - L\u1edbp O",
+            "department": "Khoa CS",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "Thanh Danh",
+            "room_id": 3,
+            "campus": "B\u1eafc"
+        },
+        {
+            "id": 32,
+            "name": "Tennis 001 - L\u1edbp T",
+            "department": "Khoa PE",
+            "max_students": 30,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Daniel",
+            "room_id": 4,
+            "campus": "Nam"
+        },
+        {
+            "id": 33,
+            "name": "B",
+            "department": "Khoa CS",
+            "max_students": 30,
+            "duration": 2,
+            "requires_lab": true,
+            "teacher": "B\u00e0 Anna",
+            "room_id": 6,
+            "campus": "N1"
+        }
+    ]
+}
