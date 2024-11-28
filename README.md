@@ -9,6 +9,4 @@ nhập : git clone https://github.com/LemyTruc/AI-final.git
 - Nhập : pip install pyqt6
   
 # Chạy chương trình
-- Bấm F5 hoặc chọn biểu tượng Run trên màn hình
-- Giữ nguyên (hoặc thay đổi) Generations và population size 
-- Bấm Run Genetic Algorithm
+- Bấm F5 hoặc chọn biểu tượng Run trên màn hình ở file main.py
