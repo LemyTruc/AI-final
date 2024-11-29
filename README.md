@@ -12,5 +12,5 @@ nhập : git clone https://github.com/LemyTruc/AI-final.git
   + Trên giao diện tab Dữ liệu hiển thị những dữ liệu đang được lưu trên file json
  
 - Tab Lịch học 
-  + Điều chỉnh các thông số của thuật toán di truyền ( hoặc sử dụng thông số có sẵn)+
+  + Điều chỉnh các thông số của thuật toán di truyền ( hoặc sử dụng thông số có sẵn)
   + Ấn chạy thuật toán để Lịch học được hiển thị trên giao diện
