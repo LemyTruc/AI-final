@@ -1,5 +1,5 @@
 import json
-from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QGridLayout, QFormLayout, QSpinBox, QPushButton, QWidget, QLabel, QMessageBox, QLineEdit, QTabWidget, QComboBox, QTableWidget, QTableWidgetItem, QHeaderView
+from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QGridLayout, QFormLayout, QSpinBox, QDoubleSpinBox, QPushButton, QWidget, QLabel, QMessageBox, QLineEdit, QTabWidget, QComboBox, QTableWidget, QTableWidgetItem, QHeaderView
 from genetic_algorithm import genetic_algorithm, Room, CourseClass
 
 class ScheduleApp(QMainWindow):
@@ -10,6 +10,8 @@ class ScheduleApp(QMainWindow):
         self.total_slots = 30
         self.generations = 100
         self.population_size = 50
+        self.crossover_rate = 0.7
+        self.mutation_rate = 0.1
 
         self.load_data()
 
@@ -83,11 +85,6 @@ class ScheduleApp(QMainWindow):
         self.course_teacher_input = QLineEdit()
         self.course_department_input = QLineEdit()
         self.course_campus_input = QLineEdit()
-        self.course_room_input = QComboBox()
-
-        # Populate the room dropdown
-        self.update_room_dropdown()
-
         course_form_layout.addRow("Tên khóa học:", self.course_name_input)
         course_form_layout.addRow("Số lượng sinh viên tối đa:", self.max_students_input)
         course_form_layout.addRow("Thời lượng:", self.course_duration_input)
@@ -95,7 +92,6 @@ class ScheduleApp(QMainWindow):
         course_form_layout.addRow("Giảng viên:", self.course_teacher_input)
         course_form_layout.addRow("Khoa:", self.course_department_input)
         course_form_layout.addRow("Cơ sở:", self.course_campus_input)
-        course_form_layout.addRow("Phòng:", self.course_room_input)
 
         add_course_button = QPushButton("Thêm khóa học")
         add_course_button.clicked.connect(self.add_course)
@@ -136,14 +132,31 @@ class ScheduleApp(QMainWindow):
         self.schedule_grid = QGridLayout()
         self.setup_schedule_grids()
 
-        form_layout = QFormLayout()
+        form_layout = QHBoxLayout()  # Change to QHBoxLayout for horizontal layout
+
         self.gen_spin = QSpinBox()
         self.gen_spin.setValue(self.generations)
-        form_layout.addRow("Số Thế Hệ:", self.gen_spin)
+        form_layout.addWidget(QLabel("Số Thế Hệ:"))
+        form_layout.addWidget(self.gen_spin)
 
         self.pop_spin = QSpinBox()
         self.pop_spin.setValue(self.population_size)
-        form_layout.addRow("Kích Thước Quần Thể:", self.pop_spin)
+        form_layout.addWidget(QLabel("Kích Thước Quần Thể:"))
+        form_layout.addWidget(self.pop_spin)
+
+        self.crossover_spin = QDoubleSpinBox()
+        self.crossover_spin.setRange(0, 1)
+        self.crossover_spin.setSingleStep(0.01)
+        self.crossover_spin.setValue(self.crossover_rate)
+        form_layout.addWidget(QLabel("Tỷ Lệ Lai Ghép:"))
+        form_layout.addWidget(self.crossover_spin)
+
+        self.mutation_spin = QDoubleSpinBox()
+        self.mutation_spin.setRange(0, 1)
+        self.mutation_spin.setSingleStep(0.01)
+        self.mutation_spin.setValue(self.mutation_rate)
+        form_layout.addWidget(QLabel("Tỷ Lệ Đột Biến:"))
+        form_layout.addWidget(self.mutation_spin)
 
         run_button = QPushButton("Chạy Thuật Toán Di Truyền")
         run_button.clicked.connect(self.run_ga)
@@ -205,8 +218,10 @@ class ScheduleApp(QMainWindow):
     def run_ga(self):
         self.generations = self.gen_spin.value()
         self.population_size = self.pop_spin.value()
+        self.crossover_rate = self.crossover_spin.value()
+        self.mutation_rate = self.mutation_spin.value()
 
-        best_schedule = genetic_algorithm(self.courses, self.rooms, self.total_slots, self.generations, self.population_size)
+        best_schedule = genetic_algorithm(self.courses, self.rooms, self.total_slots, self.generations, self.population_size, self.crossover_rate, self.mutation_rate)
         self.display_schedule(best_schedule)
         QMessageBox.information(self, "Kết quả", f"Điểm lịch học tốt nhất: {best_schedule.score}")
 
@@ -269,22 +284,19 @@ class ScheduleApp(QMainWindow):
             requires_lab=self.course_requires_lab_input.currentText() == "Có", 
             teacher=self.course_teacher_input.text(), 
             campus=self.course_campus_input.text(),
-            room_id=self.course_room_input.currentData()  # Get the room ID from the dropdown
+            room_id=None  # Let the genetic algorithm assign the room
         )
-        self.courses.append(new_course)
 
-        # Refresh course data in table and save
-        self.load_course_data()
-        self.save_data()
+        # Add the new course to the list
+        self.courses.append(new_course)
 
         # Clear input fields
         self.course_name_input.clear()
-        self.max_students_input.setValue(0)
-        self.course_duration_input.setValue(0)
-        self.course_requires_lab_input.setCurrentIndex(0)
         self.course_teacher_input.clear()
         self.course_department_input.clear()
         self.course_campus_input.clear()
-        self.course_room_input.setCurrentIndex(0)
+        self.max_students_input.setValue(0)
+        self.course_duration_input.setValue(0)
+        self.course_requires_lab_input.setCurrentIndex(0)
 
         QMessageBox.information(self, "Thành công", "Khóa học đã được thêm thành công!")

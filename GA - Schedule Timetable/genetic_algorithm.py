@@ -30,7 +30,7 @@ class Schedule:
         self.slots: List[List[CourseClass]] = []   # List of slots with scheduled classes
         self.score: float = 0
 
-    def add_class_to_slot(self, course_class: CourseClass, slot: int):
+    def add_class_to_slot(self, course_class: CourseClass, slot: int, rooms: List[Room]):
         # Check if course is already scheduled
         if course_class in self.classes:
             raise ValueError("Course already scheduled.")
@@ -42,6 +42,16 @@ class Schedule:
         # Check for scheduling conflicts
         if any(other == course_class for other in self.slots[slot]):
             raise ValueError("Slot conflict detected.")
+
+        # Assign room based on constraints
+        for room in rooms:
+            if (room.seats >= course_class.max_students and 
+                (not course_class.requires_lab or room.is_lab) and 
+                room.campus == course_class.campus):
+                course_class.room_id = room.id
+                break
+        else:
+            raise ValueError("No suitable room found.")
 
         # Add class to slot
         self.slots[slot].append(course_class)
@@ -56,7 +66,7 @@ class Schedule:
                 room = rooms[slot % len(rooms)]
 
                 # Room capacity and lab constraints
-                if room.seats < course.duration or (course.requires_lab and not room.is_lab):
+                if room.seats < course.max_students or (course.requires_lab and not room.is_lab):
                     continue
 
                 # Department slot constraint
@@ -66,6 +76,9 @@ class Schedule:
                     department_slots[course.department].append(slot)
                 else:
                     department_slots[course.department] = [slot]
+
+                # Assign room to course
+                course.room_id = room.id
 
                 # Increment score for valid scheduling
                 self.score += 1
@@ -79,16 +92,15 @@ class Schedule:
         return self.score
 
 
-def initialize_population(population_size: int, courses: List[CourseClass], 
-                          rooms: List[Room], total_slots: int) -> List[Schedule]:
+def initialize_population(population_size: int, courses: List[CourseClass], rooms: List[Room], total_slots: int) -> List[Schedule]:
     population = []
     for _ in range(population_size):
         schedule = Schedule()
         for course in courses:
-            for _ in range(total_slots):  # Multiple attempts to schedule
+            for _ in range(total_slots):
                 random_slot = random.randint(0, total_slots - 1)
                 try:
-                    schedule.add_class_to_slot(course, random_slot)
+                    schedule.add_class_to_slot(course, random_slot, rooms)
                     break  # Successfully scheduled
                 except ValueError:
                     continue
@@ -96,8 +108,7 @@ def initialize_population(population_size: int, courses: List[CourseClass],
     return population
 
 
-def crossover(parent1: Schedule, parent2: Schedule, 
-              rooms: List[Room]) -> Schedule:
+def crossover(parent1: Schedule, parent2: Schedule, rooms: List[Room]) -> Schedule:
     child = Schedule()
     courses = list(parent1.classes.keys())
     
@@ -109,15 +120,14 @@ def crossover(parent1: Schedule, parent2: Schedule,
             # Choose slot from either parent based on crossover mask
             slot = (parent1.classes[course] if crossover_mask[i] 
                     else parent2.classes[course])
-            child.add_class_to_slot(course, slot)
+            child.add_class_to_slot(course, slot, rooms)
         except ValueError:
             continue
     
     return child
 
 
-def mutate(schedule: Schedule, rooms: List[Room], 
-           total_slots: int, mutation_chance: float = 0.1):
+def mutate(schedule: Schedule, rooms: List[Room], total_slots: int, mutation_chance: float = 0.1):
     for course in list(schedule.classes.keys()):
         if random.random() < mutation_chance:
             # Remove from current slot
@@ -127,10 +137,10 @@ def mutate(schedule: Schedule, rooms: List[Room],
             
             # Try to reschedule
             for _ in range(total_slots):
-                new_slot = random.randint(0, total_slots - 1)
+                random_slot = random.randint(0, total_slots - 1)
                 try:
-                    schedule.add_class_to_slot(course, new_slot)
-                    break
+                    schedule.add_class_to_slot(course, random_slot, rooms)
+                    break  # Successfully rescheduled
                 except ValueError:
                     continue
 
@@ -143,7 +153,8 @@ def select_parent(population: List[Schedule]) -> Schedule:
 
 def genetic_algorithm(courses: List[CourseClass], rooms: List[Room], 
                       total_slots: int, generations: int = 100, 
-                      population_size: int = 50) -> Schedule:
+                      population_size: int = 50, crossover_rate: float = 0.7, 
+                      mutation_rate: float = 0.1) -> Schedule:
     population = initialize_population(population_size, courses, rooms, total_slots)
 
     best_overall_schedule = None
@@ -173,10 +184,13 @@ def genetic_algorithm(courses: List[CourseClass], rooms: List[Room],
             parent2 = select_parent(population)
             
             # Create child through crossover
-            child = crossover(parent1, parent2, rooms)
+            if random.random() < crossover_rate:
+                child = crossover(parent1, parent2, rooms)
+            else:
+                child = parent1 if parent1.score > parent2.score else parent2
             
             # Mutate child
-            mutate(child, rooms, total_slots)
+            mutate(child, rooms, total_slots, mutation_rate)
             
             # Recalculate score
             child.calculate_score(rooms)
