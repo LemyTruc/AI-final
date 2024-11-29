@@ -55,6 +55,48 @@
             "seats": 30,
             "is_lab": false,
             "campus": "N1"
+        },
+        {
+            "id": 9,
+            "name": "R1",
+            "seats": 30,
+            "is_lab": true,
+            "campus": "N1"
+        },
+        {
+            "id": 10,
+            "name": "R1",
+            "seats": 10,
+            "is_lab": false,
+            "campus": "B1"
+        },
+        {
+            "id": 11,
+            "name": "B1",
+            "seats": 30,
+            "is_lab": false,
+            "campus": "b1"
+        },
+        {
+            "id": 12,
+            "name": "a1",
+            "seats": 1,
+            "is_lab": true,
+            "campus": "B1"
+        },
+        {
+            "id": 13,
+            "name": "ph\u00f2ng 10",
+            "seats": 30,
+            "is_lab": false,
+            "campus": "N1"
+        },
+        {
+            "id": 14,
+            "name": "123",
+            "seats": 12,
+            "is_lab": false,
+            "campus": "123"
         }
     ],
     "courses": [
@@ -66,6 +108,7 @@
             "duration": 2,
             "requires_lab": false,
             "teacher": "\u00d4ng Smith",
+            "room_id": 7,
             "campus": "Ch\u00ednh"
         },
         {
@@ -76,6 +119,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Johnson",
+            "room_id": null,
             "campus": "Ch\u00ednh"
         },
         {
@@ -86,6 +130,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Lee",
+            "room_id": 7,
             "campus": "B\u1eafc"
         },
         {
@@ -96,6 +141,7 @@
             "duration": 1,
             "requires_lab": false,
             "teacher": "B\u00e0 Brown",
+            "room_id": 7,
             "campus": "Nam"
         },
         {
@@ -106,6 +152,7 @@
             "duration": 2,
             "requires_lab": false,
             "teacher": "\u00d4ng Smith",
+            "room_id": 6,
             "campus": "Ch\u00ednh"
         },
         {
@@ -116,6 +163,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Walker",
+            "room_id": 3,
             "campus": "B\u1eafc"
         },
         {
@@ -126,6 +174,7 @@
             "duration": 1,
             "requires_lab": false,
             "teacher": "B\u00e0 Green",
+            "room_id": 5,
             "campus": "Nam"
         },
         {
@@ -136,6 +185,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Adams",
+            "room_id": 5,
             "campus": "B\u1eafc"
         },
         {
@@ -146,6 +196,7 @@
             "duration": 2,
             "requires_lab": false,
             "teacher": "\u00d4ng Smith",
+            "room_id": 1,
             "campus": "Ch\u00ednh"
         },
         {
@@ -156,6 +207,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Johnson",
+            "room_id": null,
             "campus": "Ch\u00ednh"
         },
         {
@@ -166,6 +218,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Lee",
+            "room_id": 3,
             "campus": "B\u1eafc"
         },
         {
@@ -176,6 +229,7 @@
             "duration": 1,
             "requires_lab": false,
             "teacher": "B\u00e0 Brown",
+            "room_id": 5,
             "campus": "Nam"
         },
         {
@@ -186,6 +240,7 @@
             "duration": 2,
             "requires_lab": false,
             "teacher": "\u00d4ng Smith",
+            "room_id": 7,
             "campus": "Ch\u00ednh"
         },
         {
@@ -196,6 +251,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Walker",
+            "room_id": 7,
             "campus": "B\u1eafc"
         },
         {
@@ -206,6 +262,7 @@
             "duration": 1,
             "requires_lab": false,
             "teacher": "B\u00e0 Green",
+            "room_id": 4,
             "campus": "Nam"
         },
         {
@@ -216,6 +273,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Adams",
+            "room_id": 3,
             "campus": "B\u1eafc"
         },
         {
@@ -226,6 +284,7 @@
             "duration": 2,
             "requires_lab": false,
             "teacher": "\u00d4ng Smith",
+            "room_id": 5,
             "campus": "Ch\u00ednh"
         },
         {
@@ -236,6 +295,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Johnson",
+            "room_id": null,
             "campus": "Ch\u00ednh"
         },
         {
@@ -246,6 +306,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Lee",
+            "room_id": 5,
             "campus": "B\u1eafc"
         },
         {
@@ -256,6 +317,7 @@
             "duration": 1,
             "requires_lab": false,
             "teacher": "B\u00e0 Brown",
+            "room_id": 4,
             "campus": "Nam"
         },
         {
@@ -266,6 +328,7 @@
             "duration": 2,
             "requires_lab": false,
             "teacher": "\u00d4ng Smith",
+            "room_id": 11,
             "campus": "Ch\u00ednh"
         },
         {
@@ -276,6 +339,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Walker",
+            "room_id": 3,
             "campus": "B\u1eafc"
         },
         {
@@ -286,6 +350,7 @@
             "duration": 1,
             "requires_lab": false,
             "teacher": "B\u00e0 Green",
+            "room_id": 4,
             "campus": "Nam"
         },
         {
@@ -296,6 +361,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Adams",
+            "room_id": 7,
             "campus": "B\u1eafc"
         },
         {
@@ -306,6 +372,7 @@
             "duration": 2,
             "requires_lab": false,
             "teacher": "\u00d4ng Smith",
+            "room_id": 6,
             "campus": "Ch\u00ednh"
         },
         {
@@ -316,6 +383,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Johnson",
+            "room_id": null,
             "campus": "Ch\u00ednh"
         },
         {
@@ -326,6 +394,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Lee",
+            "room_id": 3,
             "campus": "B\u1eafc"
         },
         {
@@ -336,6 +405,7 @@
             "duration": 1,
             "requires_lab": false,
             "teacher": "B\u00e0 Brown",
+            "room_id": 11,
             "campus": "Nam"
         },
         {
@@ -346,6 +416,7 @@
             "duration": 2,
             "requires_lab": false,
             "teacher": "\u00d4ng Smith",
+            "room_id": 3,
             "campus": "Ch\u00ednh"
         },
         {
@@ -356,6 +427,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Ti\u1ebfn s\u0129 Walker",
+            "room_id": 3,
             "campus": "B\u1eafc"
         },
         {
@@ -366,6 +438,7 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "Thanh Danh",
+            "room_id": 3,
             "campus": "B\u1eafc"
         },
         {
@@ -376,6 +449,7 @@
             "duration": 1,
             "requires_lab": false,
             "teacher": "\u00d4ng Daniel",
+            "room_id": 4,
             "campus": "Nam"
         },
         {
@@ -386,7 +460,63 @@
             "duration": 2,
             "requires_lab": true,
             "teacher": "B\u00e0 Anna",
+            "room_id": 7,
             "campus": "N1"
+        },
+        {
+            "id": 34,
+            "name": "Ho\u00e1 h\u1ecdc ",
+            "department": "Khoa Ho\u00e1 h\u1ecdc",
+            "max_students": 30,
+            "duration": 1,
+            "requires_lab": true,
+            "teacher": "Long Ho\u00e1 ",
+            "room_id": 7,
+            "campus": "N1"
+        },
+        {
+            "id": 35,
+            "name": "Ho\u00e1 hoc 8386",
+            "department": "Khoa Ho\u00e1 H\u1ecdc",
+            "max_students": 50,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "\u00d4ng Long",
+            "room_id": null,
+            "campus": "N1"
+        },
+        {
+            "id": 36,
+            "name": "Abc",
+            "department": "Khoa Abc",
+            "max_students": 2,
+            "duration": 1,
+            "requires_lab": false,
+            "teacher": "Anna Chi",
+            "room_id": 11,
+            "campus": "B1"
+        },
+        {
+            "id": 37,
+            "name": "Sinh-123456",
+            "department": "Khoa to\u00e1n",
+            "max_students": 15,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "\u00f4ng Smith",
+            "room_id": 11,
+            "campus": "N1"
+        },
+        {
+            "id": 38,
+            "name": "123",
+            "department": "to\u00e1n",
+            "max_students": 12,
+            "duration": 2,
+            "requires_lab": false,
+            "teacher": "Smith",
+            "room_id": null,
+            "campus": "123"
         }
     ]
 }

@@ -1,6 +1,7 @@
 import random
 from typing import List, Dict
 
+# Khai báo lớp CourseClass, Room và Schedule
 class CourseClass:
     def __init__(self, id, name, department, max_students, duration, requires_lab, teacher, campus, room_id=None):
         self.id = id
@@ -13,7 +14,6 @@ class CourseClass:
         self.room_id = room_id  
         self.campus = campus
 
-
 class Room:
     def __init__(self, id: int, name: str, seats: int, 
                  is_lab: bool, campus: str):
@@ -23,27 +23,26 @@ class Room:
         self.is_lab = is_lab
         self.campus = campus
 
-
 class Schedule:
     def __init__(self):
-        self.classes: Dict[CourseClass, int] = {}  # Mapping of courses to slots
-        self.slots: List[List[CourseClass]] = []   # List of slots with scheduled classes
+        self.classes: Dict[CourseClass, int] = {}  # Ánh xạ các khóa học vào các slot
+        self.slots: List[List[CourseClass]] = []   # Danh sách các slot với các lớp đã được xếp lịch
         self.score: float = 0
 
     def add_class_to_slot(self, course_class: CourseClass, slot: int, rooms: List[Room]):
-        # Check if course is already scheduled
+        # Kiểm tra xem khóa học đã được xếp lịch chưa
         if course_class in self.classes:
-            raise ValueError("Course already scheduled.")
+            raise ValueError("Khóa học đã được xếp lịch.")
 
-        # Expand slots list if needed
+        # Mở rộng danh sách slot nếu cần
         while len(self.slots) <= slot:
             self.slots.append([])
 
-        # Check for scheduling conflicts
+        # Kiểm tra xung đột lịch
         if any(other == course_class for other in self.slots[slot]):
-            raise ValueError("Slot conflict detected.")
+            raise ValueError("Phát hiện xung đột slot.")
 
-        # Assign room based on constraints
+        # Gán phòng dựa trên các ràng buộc
         for room in rooms:
             if (room.seats >= course_class.max_students and 
                 (not course_class.requires_lab or room.is_lab) and 
@@ -51,9 +50,9 @@ class Schedule:
                 course_class.room_id = room.id
                 break
         else:
-            raise ValueError("No suitable room found.")
+            raise ValueError("Không tìm thấy phòng phù hợp.")
 
-        # Add class to slot
+        # Thêm lớp vào slot
         self.slots[slot].append(course_class)
         self.classes[course_class] = slot
 
@@ -65,11 +64,11 @@ class Schedule:
             try:
                 room = rooms[slot % len(rooms)]
 
-                # Room capacity and lab constraints
+                # Ràng buộc về sức chứa phòng và phòng thí nghiệm
                 if room.seats < course.max_students or (course.requires_lab and not room.is_lab):
                     continue
 
-                # Department slot constraint
+                # Ràng buộc về slot của khoa
                 if course.department in department_slots:
                     if slot in department_slots[course.department]:
                         continue
@@ -77,14 +76,14 @@ class Schedule:
                 else:
                     department_slots[course.department] = [slot]
 
-                # Assign room to course
+                # Gán phòng cho khóa học
                 course.room_id = room.id
 
-                # Increment score for valid scheduling
+                # Tăng điểm cho việc xếp lịch hợp lệ
                 self.score += 1
 
             except ValueError:
-                # Remove invalid class scheduling
+                # Xóa lịch xếp lớp không hợp lệ
                 del self.classes[course]
                 if course in self.slots[slot]:
                     self.slots[slot].remove(course)
@@ -101,7 +100,7 @@ def initialize_population(population_size: int, courses: List[CourseClass], room
                 random_slot = random.randint(0, total_slots - 1)
                 try:
                     schedule.add_class_to_slot(course, random_slot, rooms)
-                    break  # Successfully scheduled
+                    break  # Đã xếp lịch thành công
                 except ValueError:
                     continue
         population.append(schedule)
@@ -112,12 +111,12 @@ def crossover(parent1: Schedule, parent2: Schedule, rooms: List[Room]) -> Schedu
     child = Schedule()
     courses = list(parent1.classes.keys())
     
-    # Create crossover mask
+    # Tạo mặt nạ crossover
     crossover_mask = [random.random() < 0.5 for _ in range(len(courses))]
     
     for i, course in enumerate(courses):
         try:
-            # Choose slot from either parent based on crossover mask
+            # Chọn slot từ một trong hai cha mẹ dựa trên mặt nạ crossover
             slot = (parent1.classes[course] if crossover_mask[i] 
                     else parent2.classes[course])
             child.add_class_to_slot(course, slot, rooms)
@@ -130,17 +129,17 @@ def crossover(parent1: Schedule, parent2: Schedule, rooms: List[Room]) -> Schedu
 def mutate(schedule: Schedule, rooms: List[Room], total_slots: int, mutation_chance: float = 0.1):
     for course in list(schedule.classes.keys()):
         if random.random() < mutation_chance:
-            # Remove from current slot
+            # Xóa khỏi slot hiện tại
             current_slot = schedule.classes[course]
             schedule.slots[current_slot].remove(course)
             del schedule.classes[course]
             
-            # Try to reschedule
+            # Thử xếp lại lịch
             for _ in range(total_slots):
                 random_slot = random.randint(0, total_slots - 1)
                 try:
                     schedule.add_class_to_slot(course, random_slot, rooms)
-                    break  # Successfully rescheduled
+                    break  # Đã xếp lại lịch thành công
                 except ValueError:
                     continue
 
@@ -161,43 +160,43 @@ def genetic_algorithm(courses: List[CourseClass], rooms: List[Room],
     best_overall_score = float('-inf')
 
     for _ in range(generations):
-        # Calculate scores for current population
+        # Tính điểm cho dân số hiện tại
         for schedule in population:
             schedule.calculate_score(rooms)
 
-        # Find best schedule in current generation
+        # Tìm lịch tốt nhất trong thế hệ hiện tại
         current_best = max(population, key=lambda sched: sched.score)
         
-        # Track overall best schedule
+        # Theo dõi lịch tốt nhất tổng thể
         if current_best.score > best_overall_score:
             best_overall_schedule = current_best
             best_overall_score = current_best.score
 
-        # Check for perfect scheduling
+        # Kiểm tra lịch hoàn hảo
         if current_best.score == len(courses):
             return current_best
 
-        # Create new population
+        # Tạo dân số mới
         new_population = []
         while len(new_population) < population_size:
             parent1 = select_parent(population)
             parent2 = select_parent(population)
             
-            # Create child through crossover
+            # Tạo con thông qua crossover
             if random.random() < crossover_rate:
                 child = crossover(parent1, parent2, rooms)
             else:
                 child = parent1 if parent1.score > parent2.score else parent2
             
-            # Mutate child
+            # Đột biến con
             mutate(child, rooms, total_slots, mutation_rate)
             
-            # Recalculate score
+            # Tính lại điểm
             child.calculate_score(rooms)
             
             new_population.append(child)
 
-        # Update population
+        # Cập nhật dân số
         population = new_population
 
     return best_overall_schedule or max(population, key=lambda sched: sched.score)

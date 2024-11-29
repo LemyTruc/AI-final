@@ -3,27 +3,31 @@ from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QGridLayout, 
 from genetic_algorithm import genetic_algorithm, Room, CourseClass
 
 class ScheduleApp(QMainWindow):
+
+    # Cài đặt màn hình chính
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Trình tạo lịch học cho sinh viên")
         self.setGeometry(100, 100, 800, 600)
+
+        # Cài đặt tham số thuật toán di truyền mặc định
         self.total_slots = 30
         self.generations = 100
         self.population_size = 50
         self.crossover_rate = 0.7
         self.mutation_rate = 0.1
 
-        self.load_data()
+        self.load_data()    # Tải dữ liệu từ file JSON
+        self.init_ui()      # Khởi tạo giao diện
 
-        self.init_ui()
-
+    # Tải dữ liệu phòng và khóa học từ file JSON
     def load_data(self):
         with open('data.json', 'r') as f:
             data = json.load(f)
-        
         self.rooms = [Room(**room) for room in data['rooms']]
         self.courses = [CourseClass(**course) for course in data['courses']]
         
+    # Lưu dữ liệu phòng và khóa học vào file JSON
     def save_data(self):
         data = {
             "rooms": [room.__dict__ for room in self.rooms],
@@ -32,7 +36,10 @@ class ScheduleApp(QMainWindow):
         with open('data.json', 'w') as f:
             json.dump(data, f, indent=4)
 
+    # Khởi tạo giao diện các màn hình
     def init_ui(self):
+
+        # Tạo các tab "Dữ Liệu" và "Lịch Học"
         self.tabs = QTabWidget()
         self.data_tab = QWidget()
         self.schedule_tab = QWidget()
@@ -40,9 +47,10 @@ class ScheduleApp(QMainWindow):
         self.tabs.addTab(self.data_tab, "Dữ Liệu")
         self.tabs.addTab(self.schedule_tab, "Lịch Học")
 
-        self.init_data_tab()
-        self.init_schedule_tab()
+        self.init_data_tab()    # Tạo giao diện cho tab "Dữ Liệu"
+        self.init_schedule_tab()    # Tạo giao diện cho tab "Lịch Học"
 
+        # Thêm các tab vào giao diện chính
         layout = QVBoxLayout()
         layout.addWidget(self.tabs)
         container = QWidget()
@@ -50,12 +58,12 @@ class ScheduleApp(QMainWindow):
         self.setCentralWidget(container)
 
     def init_data_tab(self):
-        layout = QVBoxLayout()
 
-        # Add Room and Add Course sections side by side
+        # Giao diện tab "Dữ Liệu" để thêm phòng và khóa học
+        layout = QVBoxLayout()
         form_layout = QHBoxLayout()
 
-        # Room form
+        # Form và Layout thêm phòng học
         room_form_layout = QFormLayout()
         self.room_name_input = QLineEdit()
         self.room_seats_input = QSpinBox()
@@ -73,7 +81,7 @@ class ScheduleApp(QMainWindow):
         add_room_button.clicked.connect(self.add_room)
         room_form_layout.addWidget(add_room_button)
 
-        # Course form
+        # Form và Layout thêm khóa học
         course_form_layout = QFormLayout()
         self.course_name_input = QLineEdit()
         self.max_students_input = QSpinBox()
@@ -85,6 +93,7 @@ class ScheduleApp(QMainWindow):
         self.course_teacher_input = QLineEdit()
         self.course_department_input = QLineEdit()
         self.course_campus_input = QLineEdit()
+        
         course_form_layout.addRow("Tên khóa học:", self.course_name_input)
         course_form_layout.addRow("Số lượng sinh viên tối đa:", self.max_students_input)
         course_form_layout.addRow("Thời lượng:", self.course_duration_input)
@@ -100,14 +109,14 @@ class ScheduleApp(QMainWindow):
         form_layout.addLayout(room_form_layout)
         form_layout.addLayout(course_form_layout)
 
-        # Room data table
+        # Table hiển thị dữ liệu phòng học
         self.room_table = QTableWidget()
         self.room_table.setColumnCount(5)
         self.room_table.setHorizontalHeaderLabels(["ID", "Tên Phòng", "Số Ghế", "Phòng Thực Hành", "Cơ Sở"])
         self.room_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.load_room_data()
 
-        # Course data table
+        # Table hiển thị dữ liệu khóa học
         self.course_table = QTableWidget()
         self.course_table.setColumnCount(7)
         self.course_table.setHorizontalHeaderLabels(["ID", "Tên Khóa Học", "Thời Lượng", "Phòng Thực hành", "Giảng viên", "Khoa", "Cơ Sở"])
@@ -122,10 +131,6 @@ class ScheduleApp(QMainWindow):
 
         self.data_tab.setLayout(layout)
 
-    def update_room_dropdown(self):
-        self.course_room_input.clear()
-        for room in self.rooms:
-            self.course_room_input.addItem(room.name, room.id)
 
     def init_schedule_tab(self):
         layout = QVBoxLayout()
@@ -187,6 +192,7 @@ class ScheduleApp(QMainWindow):
             self.course_table.setItem(row, 5, QTableWidgetItem(course.department))
             self.course_table.setItem(row, 6, QTableWidgetItem(course.campus))
 
+    # Tạo khung bảng lịch học
     def setup_schedule_grids(self):
         days = ["Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu"]
         for col, day in enumerate(days):
@@ -199,6 +205,7 @@ class ScheduleApp(QMainWindow):
                 frame.setStyleSheet("border: 1px solid black; min-width: 200px;  min-height: 100px; font-size: 12px;  padding: 5px; ")
                 self.schedule_grid.addWidget(frame, row, col)
 
+    # Hiển thị lịch học tốt nhất
     def display_schedule(self, schedule):
         for i in range(1, 7):
             for j in range(1, 6):
@@ -215,6 +222,7 @@ class ScheduleApp(QMainWindow):
                 room_name = room.name if room else "N/A"
                 frame.setText(f"Tên khoá học: {course.name}\nGiảng viên: {course.teacher}\nKhoa: {course.department}\nCơ sở: {course.campus}\nPhòng: {room_name}\nThời lượng: ({course.duration} tiết)")
 
+    # Chạy thuật toán di truyền
     def run_ga(self):
         self.generations = self.gen_spin.value()
         self.population_size = self.pop_spin.value()
@@ -225,19 +233,20 @@ class ScheduleApp(QMainWindow):
         self.display_schedule(best_schedule)
         QMessageBox.information(self, "Kết quả", f"Điểm lịch học tốt nhất: {best_schedule.score}")
 
+    # Thêm phòng mới vào danh sách
     def add_room(self):
-        # Validate input
+        # Kiểm tra thông tin nhập liệu hợp lệ hay không?
         if not self.room_name_input.text() or not self.room_campus_input.text():
             QMessageBox.warning(self, "Lỗi nhập liệu", "Vui lòng điền đầy đủ thông tin phòng.")
             return
 
-        # Determine next room ID
+        # Tự động cộng id cho phòng mới
         if self.rooms:
             new_id = max(room.id for room in self.rooms) + 1
         else:
             new_id = 1
 
-        # Create new room
+        # Thêm dữ liệu phòng mới vào danh sách
         new_room = Room(
             id=new_id, 
             name=self.room_name_input.text(), 
@@ -247,14 +256,11 @@ class ScheduleApp(QMainWindow):
         )
         self.rooms.append(new_room)
 
-        # Refresh room data in table and save
+        # Tải lại dữ liệu phòng và lưu vào file JSON
         self.load_room_data()
         self.save_data()
 
-        # Update room dropdown in course form
-        self.update_room_dropdown()
-
-        # Clear input fields
+        # Xoá dữ liệu nhập liệu sau khi thêm thành công 
         self.room_name_input.clear()
         self.room_seats_input.setValue(0)
         self.room_is_lab_input.setCurrentIndex(0)
@@ -262,19 +268,17 @@ class ScheduleApp(QMainWindow):
 
         QMessageBox.information(self, "Thành công", "Phòng đã được thêm thành công!")
 
+    # Thêm khóa học mới vào danh sách
     def add_course(self):
-        # Validate input
         if not self.course_name_input.text() or not self.course_teacher_input.text() or not self.course_department_input.text() or not self.course_campus_input.text():
             QMessageBox.warning(self, "Lỗi nhập liệu", "Vui lòng điền đầy đủ thông tin khóa học.")
             return
 
-        # Determine next course ID
         if self.courses:
             new_id = max(course.id for course in self.courses) + 1
         else:
             new_id = 1
 
-        # Create new course
         new_course = CourseClass(
             id=new_id, 
             name=self.course_name_input.text(), 
@@ -283,14 +287,15 @@ class ScheduleApp(QMainWindow):
             duration=self.course_duration_input.value(), 
             requires_lab=self.course_requires_lab_input.currentText() == "Có", 
             teacher=self.course_teacher_input.text(), 
-            campus=self.course_campus_input.text(),
-            room_id=None  # Let the genetic algorithm assign the room
+            campus=self.course_campus_input.text()
         )
 
-        # Add the new course to the list
+
         self.courses.append(new_course)
 
-        # Clear input fields
+        self.load_course_data()
+        self.save_data()
+
         self.course_name_input.clear()
         self.course_teacher_input.clear()
         self.course_department_input.clear()
