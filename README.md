@@ -2,6 +2,7 @@
 mở git bash
 nhập : git clone https://github.com/LemyTruc/AI-final.git
 # Cài đặt thư viện
+- Open folder GA - Schedule Timetable trên visual studio code
 - mở terminal trên ứng dụng visual studio code: ctrl+"`"
 - Nhập : pip install pyqt6
 # Chạy chương trình
